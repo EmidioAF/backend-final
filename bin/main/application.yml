@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:restaurantedb
+    username: sa
+    password: 
+    driverClassName: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+api:
+  security:
+    token:
+      secret: "CHAVE_SECRETA_FODA_PRA_CARALHO_QUE_DEVERIA_ESTAR_NAS_VARIAVEIS_DE_AMBIENTE"
