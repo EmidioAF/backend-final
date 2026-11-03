@@ -12,6 +12,8 @@ Este projeto consiste numa API RESTful desenvolvida em **Spring Boot 3** e **Kot
 * **Build System:** Gradle (Kotlin DSL)
 
 ---
+Nomes: Emidio Angelotti Filho & Júlio Cezar
+Link do Vídeo: https://youtu.be/EqtYPUhW_Og
 
 ## Mapeamento Detalhado dos Critérios de Avaliação (Para Correção)
 
