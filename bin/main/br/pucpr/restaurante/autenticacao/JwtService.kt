@@ -16,6 +16,12 @@ class JwtService(@Value("\${api.security.token.secret}") private val secret: Str
         .withExpiresAt(Instant.now().plus(2, ChronoUnit.HOURS))
         .sign(Algorithm.HMAC256(secret))
 
+    fun validarToken(token: String): String? = try {
+        JWT.require(Algorithm.HMAC256(secret))
+            .withIssuer("restaurante-api")
+            .build()
+            .verify(token)
+            .subject
     } catch (e: Exception) {
         null
     }
