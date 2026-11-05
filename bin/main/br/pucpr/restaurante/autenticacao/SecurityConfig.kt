@@ -17,5 +17,23 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 class SecurityConfig(private val securityFilter: SecurityFilter) {
 
+    @Bean
+    fun securityFilterChain(http: HttpSecurity): SecurityFilterChain = http
+        .csrf { it.disable() }
+        .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
+        .authorizeHttpRequests { auth ->
+            auth.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+            auth.requestMatchers(HttpMethod.GET, "/api/produtos/**").permitAll()
+            auth.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/h2-console/**").permitAll()
+            auth.anyRequest().authenticated()
+        }
+        .headers { it.frameOptions { frame -> frame.disable() } }
+        .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter::class.java)
+        .build()
 
+    @Bean
+    fun authenticationManager(config: AuthenticationConfiguration): AuthenticationManager = config.authenticationManager
+
+    @Bean
+    fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
 }
